@@ -4,7 +4,7 @@
   box-sizing:border-box;
   font-family:'Segoe UI', sans-serif;
 }
-
+  
 /* HEADER */
 .header{
   display:flex;
@@ -13,7 +13,7 @@
   padding:18px 40px;
   background:#1e3a8a;
   color:white;
-}
+}                    
 
 .header nav a{
   color:white;
@@ -68,34 +68,34 @@
   height:100%;
   object-fit:cover;
 }
-
+      
 /* CATEGORIES (2 per row) */
 .categories{
   padding:50px;
   display:grid;
   grid-template-columns:repeat(3, 1fr);
   gap:25px;
-}
+}    
 
 .categories h2{
   grid-column:1 / -1;
   text-align:center;
   color:#1e3a8a;
-}
+}   
 
 .category-box{
   background:#f1f5f9;
   padding:25px;
   border-radius:14px;
   box-shadow:0 6px 15px rgba(0,0,0,0.08);
-}
+}   
 
 /* USER PREFERENCE */
 .preference{
   background:#eff6ff;
   padding:50px;
   text-align:center;
-}
+}   
 
 .preference form{
   max-width:500px;
