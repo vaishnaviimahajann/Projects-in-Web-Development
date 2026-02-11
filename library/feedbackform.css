@@ -1,0 +1,81 @@
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f7ff;
+}
+.navbar{
+    background-color: #1f3c88;
+    color: white;
+    padding: 15px;
+    text-align: center;
+
+}
+.feedbackform-container{
+    max-width: 700px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+}
+.feedbackform-container h1{
+    color: #1f3c88;
+    text-align: center;
+}
+
+.feedbackform-container p{
+    color: grey;
+    text-align: center;
+}
+h3{
+    margin-top:25px;
+    color: #13285e;
+}
+label{
+    display: block;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-weight: bold;
+}
+select,textarea{
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea{
+    height: 100px;
+}
+.checkbox-group{
+    display: grid;
+    margin-top: 10px;
+    grid-template-columns:repeat(2,1fr);
+    margin-top: 10px;
+}
+button{
+    width: 100%;
+    margin-top:20px;
+    padding: 12px;
+    background-color: #1f3c88;
+    color: white;
+    border:none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #16376e;
+}
+
+footer{
+    text-align: center;
+    padding: 10px;
+    background-color: #1f3c88;
+    color: white;
+    margin-top: 40px;
+}
