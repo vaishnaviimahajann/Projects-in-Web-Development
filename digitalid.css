@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+}
+
+.card{
+    width: 400px;
+    height: 700px;
+    background-color: rgb(219, 224, 219);
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 2px solid black;
+    overflow: hidden;
+}
+
+/* Heading */
+.heading{
+    text-align: center;
+    color: red;
+    text-decoration: underline;
+    padding-top: 15px;
+}
+
+/* University Name */
+h3{
+    text-align: center;
+    text-decoration: underline;
+    color: red;
+    text-decoration-thickness: 3px;
+    margin-top: 5px;
+}
+
+/* Address */
+.address{
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+}
+p{
+    text-align: center;
+}
+
+/* Name Section */
+.name{
+    margin-top: 60px;
+    height: 200px;
+    background-color: #c9a06a;
+    display: flex;
+    /*justify-content: center;
+    align-items: center;*/
+    font-size: 22px;
+    font-weight: bold;
+    flex-direction: column;
+
+}
+
+.name{
+    height: 200px;
+    background-color: #c9a06a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;   /* important */
+    padding-bottom: 20PX;
+}
+/* Info Section */
+.info{
+    height: 250px;
+    background-color: white;
+    padding: 20px;
+    font-size: 18px;
+}
+
+/* ID Section */
+.id{
+    height: 70px;
+    background-color: maroon;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+.mainimages{
+    margin-top: 5px;
+    height: 150px;
+    width: auto;
+   padding-top: 25px;
+    display: flex;
+    gap: 55px;
+
+}
+.barcode{
+    height: 70%;
+    width: 40%;
+   
+}
+.sign{
+     height: 70%;
+    width: 40%;
+   
+}
+.barcode img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-left: 13px;
+    
+}
+.sign img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.profile{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    position: absolute;
+    top: -75px;          /* aadha upar */
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+    
+}
+.profile img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+     border-radius: 50%;
+}
+
+H4{
+    color: white;
+}
