@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 <head>
     <title>HTML CSS Quiz</title>
@@ -190,7 +190,7 @@ function checkResult() {
         q7: "b",
         q8: "a",
         q9: "c",
-        q10: "b"
+        q10:"b"
     };
 
     for (let key in answers) {
@@ -212,4 +212,267 @@ function checkResult() {
 </script>
 
 </body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML CSS JS QUIZ</title>
+
+<style>
+
+body{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:#e8f5e9;
+font-family:Arial, sans-serif;
+}
+
+h1{
+margin-bottom:20px;
+color:#2e7d32;
+}
+
+.quiz-box{
+background:white;
+padding:30px;
+border-radius:12px;
+width:420px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+#question{
+color:#333;
+margin-bottom:15px;
+}
+
+.option{
+display:block;
+width:100%;
+margin:10px 0;
+padding:12px;
+cursor:pointer;
+border:none;
+border-radius:8px;
+background:#f1f8e9;
+font-size:16px;
+transition:0.3s;
+}
+
+.option:hover{
+background:#c8e6c9;
+}
+
+#nextBtn{
+margin-top:15px;
+padding:12px 25px;
+font-size:16px;
+cursor:pointer;
+border:none;
+border-radius:8px;
+background:#43a047;
+color:white;
+transition:0.3s;
+}
+
+#nextBtn:hover{
+background:#2e7d32;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>HTML CSS JS QUIZ</h1>
+
+<div class="quiz-box">
+
+<h2 id="question">Question</h2>
+
+<button class="option"></button>
+<button class="option"></button>
+<button class="option"></button>
+<button class="option"></button>
+
+<button id="nextBtn">Next</button>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"What does HTML stand for?",
+options:[
+"Hyper Text Markup Language",
+"Home Tool Markup Language",
+"Hyperlinks and Text Mark Language",
+"Hyper Transfer Mark Language"
+],
+answer:0
+},
+
+{
+question:"Which tag is used to create a hyperlink in HTML?",
+options:[
+"<a>",
+"<link>",
+"<href>",
+"<h1>"
+],
+answer:0
+},
+
+{
+question:"Which CSS property is used to change text color?",
+options:[
+"color",
+"text-style",
+"font-color",
+"background-color"
+],
+answer:0
+},
+
+{
+question:"Which CSS property controls the text size?",
+options:[
+"font-size",
+"text-size",
+"font-style",
+"text-style"
+],
+answer:0
+},
+
+{
+question:"Which HTML tag is used for the largest heading?",
+options:[
+"<h1>",
+"<h6>",
+"<heading>",
+"<head>"
+],
+answer:0
+},
+
+{
+question:"Inside which HTML tag do we write JavaScript?",
+options:[
+"<script>",
+"<javascript>",
+"<js>",
+"<code>"
+],
+answer:0
+},
+
+{
+question:"Which keyword is used to declare a variable in JavaScript?",
+options:[
+"let",
+"var",
+"const",
+"All of the above"
+],
+answer:3
+},
+
+{
+question:"Which method is used to print something in the browser console?",
+options:[
+"console.log()",
+"print()",
+"log.console()",
+"write()"
+],
+answer:0
+},
+
+{
+question:"Which symbol is used for comments in JavaScript?",
+options:[
+"//",
+"<!-- -->",
+"**",
+"##"
+],
+answer:0
+},
+
+{
+question:"Which HTML tag is used to insert an image?",
+options:[
+"<img>",
+"<image>",
+"<pic>",
+"<src>"
+],
+answer:0
+}
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let selected = -1;
+
+const questionElement = document.getElementById("question");
+const options = document.querySelectorAll(".option");
+const nextBtn = document.getElementById("nextBtn");
+
+function loadQuestion(){
+
+selected = -1;
+
+let q = questions[currentQuestion];
+
+questionElement.innerText = q.question;
+
+options.forEach((btn,index)=>{
+btn.innerText = q.options[index];
+});
+
+}
+
+options.forEach((btn,index)=>{
+
+btn.addEventListener("click",function(){
+selected = index;
+});
+
+});
+
+nextBtn.addEventListener("click",function(){
+
+if(selected === questions[currentQuestion].answer){
+score++;
+}
+
+currentQuestion++;
+
+if(currentQuestion < questions.length){
+loadQuestion();
+}
+else{
+document.querySelector(".quiz-box").innerHTML =
+"<h2>Your Score : "+score+" / "+questions.length+"</h2>";
+}
+
+});
+
+loadQuestion();
+
+</script>
+
+</body>
 </html>
+
