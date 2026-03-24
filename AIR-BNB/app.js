@@ -7,7 +7,8 @@ const methodOverride = require("method-override");
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError=require("./utils/ExpressError.js");
-const{listingSchema}=require("./schema.js");
+const{listingSchema,reviewSchema}=require("./schema.js");
+const Review = require("./models/review.js");
 
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
@@ -41,6 +42,24 @@ app.get("/",(req,res)=>{
 });
 
 
+const validateisting=(req,res,next)=>{
+    let {error}=listingSchema.validate(req.body);
+    if(error){
+        let errMsg =error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400,errMsg);
+    }else{
+        next();
+    }
+};
+const validateReview=(req,res,next)=>{
+    let {error}=reviewSchema.validate(req.body);
+    if(error){
+        let errMsg =error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400,errMsg);
+    }else{
+        next();
+    }
+};
 // INDEX ROUTE
 app.get("/listings",wrapAsync(async (req,res)=>{
     const allListings = await Listing.find({});
@@ -87,7 +106,7 @@ app.post("/listings", wrapAsync(async (req,res)=>{
 // SHOW ROUTE
 app.get("/listings/:id",wrapAsync(async (req,res)=>{
     let {id}=req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show",{listing});
 }));
 
@@ -117,6 +136,7 @@ app.delete("/listings/:id",wrapAsync(async (req,res)=>{
 }));
 /*
 
+
 app.all("/*",(req,res,next)=>{
     next(new ExpressError(404,"page not found"));
 });
@@ -127,6 +147,41 @@ app.use((err,req,res,next)=>{
     res.status(statuscode).send(message);
 });
 */
+
+
+
+//reveiws post route
+
+app.post("/listings/:id/reviews",validateReview, wrapAsync( async (req,res)=>{
+  let listing = await Listing.findById(req.params.id);
+
+  let newReview = new Review(req.body.review);
+
+  listing.reviews.push(newReview);
+
+  await newReview.save();
+  await listing.save();
+
+  console.log("new review saved");
+
+  res.redirect(`/listings/${listing._id}`);
+}));
+
+// DELETE REVIEW
+app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+  let { id, reviewId } = req.params;
+
+  // remove review from listing
+  await Listing.findByIdAndUpdate(id, {
+    $pull: { reviews: reviewId },
+  });
+
+  // delete review from DB
+  await Review.findByIdAndDelete(reviewId);
+
+  res.redirect(`/listings/${id}`);   // ✅ correct route
+}));
+
 // 404 handler
 app.use((req,res,next)=>{
     next(new ExpressError(404,"Page Not Found"));
