@@ -7,7 +7,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { listingSchema, reviewSchema } = require("./schema.js");
+const { listingSchema, reviewSchema, } = require("./schema.js");
 
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -17,6 +17,9 @@ const Listing = require("./models/listing.js");
 const Review = require("./models/review.js");
 const User=require("./models/user.js");
 const userRouter = require("./routes/user.js");
+
+const{isLoogedIn,isOwner,isReviewOwner}=require("./middleware.js");
+
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
 
@@ -70,6 +73,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
    res.locals.error = req.flash("error");
+   res.locals.currUser=req.user; // ✅ important for navbar.ejs
   next();
 });
 app.use("/" ,userRouter);
@@ -94,12 +98,14 @@ app.get("/listings", wrapAsync(async (req, res) => {
 }));
 
 // NEW
-app.get("/listings/new", (req, res) => {
+
+app.get("/listings/new",isLoogedIn, (req, res) => {
+  console.log(req.user);
   res.render("listings/new");
 });
 
 // CREATE
-app.post("/listings", wrapAsync(async (req, res) => {
+app.post("/listings", isLoogedIn,wrapAsync(async (req, res) => {
 
   let { error } = listingSchema.validate(req.body);
   if (error) {
@@ -107,6 +113,7 @@ app.post("/listings", wrapAsync(async (req, res) => {
   }
 
   const newListing = new Listing(req.body.listings);
+  newListing.owner = req.user._id; // ✅ associate listing with the logged in userss
   await newListing.save();
 
   req.flash("success", "New Listing Created!");
@@ -116,19 +123,25 @@ app.post("/listings", wrapAsync(async (req, res) => {
 // 🔥 SHOW (FIXED)
 app.get("/listings/:id", wrapAsync(async (req, res) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id).populate("reviews");
+  const listing = await Listing.findById(id)
+  .populate({
+    "path": "reviews",
+  })
+  .populate({
+    "path": "owner",
+  });// ✅ important to populate owner for show page
 
   // ✅ HANDLE DELETED / INVALID ID
   if (!listing) {
     req.flash("success", "Listing you are looking for does not exist!");
     return res.redirect("/listings");
   }
-
+  console.log(listing);
   res.render("listings/show", { listing });
 }));
 
 // EDIT
-app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
+app.get("/listings/:id/edit",isLoogedIn,isOwner, wrapAsync(async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
 
@@ -141,7 +154,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 // UPDATE
-app.put("/listings/:id", wrapAsync(async (req, res) => {
+app.put("/listings/:id",isLoogedIn,isOwner, wrapAsync(async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listings });
 
@@ -150,7 +163,7 @@ app.put("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 // DELETE
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
+app.delete("/listings/:id", isLoogedIn,isOwner,wrapAsync(async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
 
@@ -159,11 +172,13 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 // REVIEW ADD
-app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
+app.post("/listings/:id/reviews", isLoogedIn,wrapAsync(async (req, res) => {
   let listing = await Listing.findById(req.params.id);
 
   let newReview = new Review(req.body.review);
+  newReview.author=req.user._id; // ✅ associate review with the logged in user
   listing.reviews.push(newReview);
+  console.log(newReview);
 
   await newReview.save();
   await listing.save();
@@ -173,18 +188,22 @@ app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
 }));
 
 // REVIEW DELETE
-app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
-  let { id, reviewId } = req.params;
+app.delete("/listings/:id/reviews/:reviewId",
+  isLoogedIn,
+  isReviewOwner,
+  wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
 
-  await Listing.findByIdAndUpdate(id, {
-    $pull: { reviews: reviewId },
-  });
+    await Listing.findByIdAndUpdate(id, {
+      $pull: { reviews: reviewId },
+    });
 
-  await Review.findByIdAndDelete(reviewId);
+    await Review.findByIdAndDelete(reviewId);
 
-  req.flash("success", "Review Deleted!");
-  res.redirect(`/listings/${id}`);
-}));
+    req.flash("success", "Review Deleted!");
+    res.redirect(`/listings/${id}`);
+  })
+);
 
 // 404
 app.use((req, res, next) => {
