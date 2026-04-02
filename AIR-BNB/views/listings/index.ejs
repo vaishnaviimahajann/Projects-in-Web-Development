@@ -1,11 +1,6 @@
 <% layout("layouts/boilerplate") %>
 
-<% if(success && success.length > 0){ %>
-  <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= success %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  </div>
-<% } %>
+
 
 <h1>All Listings</h1>
 
@@ -17,7 +12,7 @@
 
   <a class="listing-link" href="/listings/<%= listing._id %>">
     <div class="card col listing-card">
-      <img src="<%= listing.image %>" class="card-img-top" style="height:20rem"/>
+      <img src="<%= listing.image.url %>" class="card-img-top" style="height:20rem"/>
 
       <div class="card-body">
         <p class="card-text">
