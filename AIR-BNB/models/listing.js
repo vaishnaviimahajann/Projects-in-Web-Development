@@ -9,9 +9,8 @@ const listingSchema = new Schema({
   },
   description: String,
   image: {
-    type: String,
-    default:
-      "https://images.pexels.com/photos/635279/pexels-photo-635279.jpeg",
+    url: String,
+    filename: String,
   },
   price: Number,
   location: String,
@@ -22,6 +21,10 @@ const listingSchema = new Schema({
       ref: "Review",
     },
   ],
+  owner: {   // ✅ FIXED
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 listingSchema.post("findOneAndDelete",async(listing)=>{
