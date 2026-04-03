@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -7,22 +11,28 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { listingSchema, reviewSchema, } = require("./schema.js");
+const { listingSchema } = require("./schema.js");
 
 const session = require("express-session");
 const flash = require("connect-flash");
-const passport=require("passport");
-const LocalStrategy=require("passport-local");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+
 const Listing = require("./models/listing.js");
 const Review = require("./models/review.js");
-const User=require("./models/user.js");
+const User = require("./models/user.js");
 const userRouter = require("./routes/user.js");
 
-const{isLoogedIn,isOwner,isReviewOwner}=require("./middleware.js");
+const { isLoogedIn, isOwner, isReviewOwner } = require("./middleware.js");
 
+const multer = require("multer");
+const { storage } = require("./cloudconfig.js");
+const upload = multer({ storage });
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
 
+
+// ✅ DB CONNECT
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
@@ -30,10 +40,19 @@ main()
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
-app.listen(8080, () => {
-  console.log("Server is running on port 8080");
-});
 
+// ✅ MIDDLEWARE (VALIDATION)
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  }
+  next();
+};
+
+
+// ✅ APP CONFIG
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -43,6 +62,7 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 
+// ✅ SESSION
 const sessionOptions = {
   secret: "mysupersecretcode",
   resave: false,
@@ -57,8 +77,8 @@ const sessionOptions = {
 app.use(session(sessionOptions));
 app.use(flash());
 
-/*passport initalization */
 
+// ✅ PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -67,29 +87,24 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-
-
-// ✅ FLASH GLOBAL (IMPORTANT)
+// ✅ GLOBAL FLASH
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
-   res.locals.error = req.flash("error");
-   res.locals.currUser=req.user; // ✅ important for navbar.ejs
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
   next();
 });
-app.use("/" ,userRouter);
-/*
-app.get("/demouser",async(req,res)=>{
-  let FakeUser=new User({
-    email:"student@gmail.com",
-    username:"delta-student"
-  });
-  let registeredUser = await User.register(FakeUser,"helloworld");
-  res.send(registeredUser);
-});*/
 
+app.use("/", userRouter);
+
+
+// ✅ ROOT
 app.get("/", (req, res) => {
   res.send("Hi I am root");
 });
+
+
+// ================= LISTINGS =================
 
 // INDEX
 app.get("/listings", wrapAsync(async (req, res) => {
@@ -98,55 +113,60 @@ app.get("/listings", wrapAsync(async (req, res) => {
 }));
 
 // NEW
-
-app.get("/listings/new",isLoogedIn, (req, res) => {
-  console.log(req.user);
+app.get("/listings/new", isLoogedIn, (req, res) => {
   res.render("listings/new");
 });
 
 // CREATE
-app.post("/listings", isLoogedIn,wrapAsync(async (req, res) => {
+app.post(
+  "/listings",
+  isLoogedIn,
+  upload.single("image"),
+  validateListing,
+  wrapAsync(async (req, res) => {
+    const newListing = new Listing(req.body.listings);
+    newListing.owner = req.user._id;
 
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(400, error.details[0].message);
-  }
+    if (req.file) {
+      newListing.image = {
+        url: req.file.path,
+        filename: req.file.filename,
+      };
+    }
 
-  const newListing = new Listing(req.body.listings);
-  newListing.owner = req.user._id; // ✅ associate listing with the logged in userss
-  await newListing.save();
+    await newListing.save();
 
-  req.flash("success", "New Listing Created!");
-  res.redirect("/listings");
-}));
+    req.flash("success", "New Listing Created!");
+    res.redirect("/listings");
+  })
+);
 
-// 🔥 SHOW (FIXED)
+// SHOW
 app.get("/listings/:id", wrapAsync(async (req, res) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id)
-  .populate({
-    "path": "reviews",
-  })
-  .populate({
-    "path": "owner",
-  });// ✅ important to populate owner for show page
 
-  // ✅ HANDLE DELETED / INVALID ID
+  const listing = await Listing.findById(id)
+    .populate({
+      path: "reviews",
+      populate: { path: "author" },
+    })
+    .populate("owner");
+
   if (!listing) {
-    req.flash("success", "Listing you are looking for does not exist!");
+    req.flash("error", "Listing does not exist!");
     return res.redirect("/listings");
   }
-  console.log(listing);
+
   res.render("listings/show", { listing });
 }));
 
 // EDIT
-app.get("/listings/:id/edit",isLoogedIn,isOwner, wrapAsync(async (req, res) => {
+app.get("/listings/:id/edit", isLoogedIn, isOwner, wrapAsync(async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
 
   if (!listing) {
-    req.flash("success", "Listing not found!");
+    req.flash("error", "Listing not found!");
     return res.redirect("/listings");
   }
 
@@ -154,16 +174,34 @@ app.get("/listings/:id/edit",isLoogedIn,isOwner, wrapAsync(async (req, res) => {
 }));
 
 // UPDATE
-app.put("/listings/:id",isLoogedIn,isOwner, wrapAsync(async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listings });
+app.put(
+  "/listings/:id",
+  isLoogedIn,
+  isOwner,
+  upload.single("image"),
+  validateListing,
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
 
-  req.flash("success", "Listing Updated!");
-  res.redirect(`/listings/${id}`);
-}));
+    let listing = await Listing.findByIdAndUpdate(id, {
+      ...req.body.listings,
+    });
+
+    if (req.file) {
+      listing.image = {
+        url: req.file.path,
+        filename: req.file.filename,
+      };
+      await listing.save();
+    }
+
+    req.flash("success", "Listing Updated!");
+    res.redirect(`/listings/${id}`);
+  })
+);
 
 // DELETE
-app.delete("/listings/:id", isLoogedIn,isOwner,wrapAsync(async (req, res) => {
+app.delete("/listings/:id", isLoogedIn, isOwner, wrapAsync(async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
 
@@ -171,24 +209,28 @@ app.delete("/listings/:id", isLoogedIn,isOwner,wrapAsync(async (req, res) => {
   res.redirect("/listings");
 }));
 
-// REVIEW ADD
-app.post("/listings/:id/reviews", isLoogedIn,wrapAsync(async (req, res) => {
+
+// ================= REVIEWS =================
+
+// ADD REVIEW
+app.post("/listings/:id/reviews", isLoogedIn, wrapAsync(async (req, res) => {
   let listing = await Listing.findById(req.params.id);
 
   let newReview = new Review(req.body.review);
-  newReview.author=req.user._id; // ✅ associate review with the logged in user
+  newReview.author = req.user._id;
+
   listing.reviews.push(newReview);
-  console.log(newReview);
 
   await newReview.save();
   await listing.save();
 
-  req.flash("success", "New Review Created!");
+  req.flash("success", "Review Added!");
   res.redirect(`/listings/${listing._id}`);
 }));
 
-// REVIEW DELETE
-app.delete("/listings/:id/reviews/:reviewId",
+// DELETE REVIEW
+app.delete(
+  "/listings/:id/reviews/:reviewId",
   isLoogedIn,
   isReviewOwner,
   wrapAsync(async (req, res) => {
@@ -205,6 +247,9 @@ app.delete("/listings/:id/reviews/:reviewId",
   })
 );
 
+
+// ================= ERROR HANDLING =================
+
 // 404
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
@@ -214,4 +259,10 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   let { statusCode = 500 } = err;
   res.status(statusCode).render("error.ejs", { err });
+});
+
+
+// ✅ SERVER
+app.listen(8080, () => {
+  console.log("Server is running on port 8080");
 });
