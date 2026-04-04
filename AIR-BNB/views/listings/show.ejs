@@ -46,18 +46,24 @@
         <input type="range" min="1" max="5" id="rating" name="review[rating]"> 
     </div>-->
 
-    <fieldset class="starability-slot">
+<fieldset class="starability-slot">
   <legend>rating:</legend>
-  <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
-  <input type="radio" id="first-rate1" name="rating" value="1" />
+
+  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+
+  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
   <label for="first-rate1" title="Terrible">1 star</label>
-  <input type="radio" id="first-rate2" name="rating" value="2" />
+
+  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
   <label for="first-rate2" title="Not good">2 stars</label>
-  <input type="radio" id="first-rate3" name="rating" value="3" />
+
+  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
   <label for="first-rate3" title="Average">3 stars</label>
-  <input type="radio" id="first-rate4" name="rating" value="4" />
+
+  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
   <label for="first-rate4" title="Very good">4 stars</label>
-  <input type="radio" id="first-rate5" name="rating" value="5" />
+
+  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
   <label for="first-rate5" title="Amazing">5 stars</label>
 </fieldset>
 
@@ -101,4 +107,30 @@
 <%}%>
 </div>
       </div>
+       </div>
 </div>
+      <!-- MAPS 
+      <div class="col-6 offset-3 mb-3">
+        <h3>where you'll stay</h3>
+        
+
+
+<div id="map" style="height: 400px; margin-top: 20px;"></div>-->
+     
+<!--
+<script>
+if (typeof listingData !== "undefined" && listingData.geometry) {
+  const lat = listingData.geometry.coordinates[1];
+  const lng = listingData.geometry.coordinates[0];
+
+  var map = L.map('map').setView([lat, lng], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  L.marker([lat, lng]).addTo(map)
+    .bindPopup(listingData.title)
+    .openPopup();
+}
+</script>-->
