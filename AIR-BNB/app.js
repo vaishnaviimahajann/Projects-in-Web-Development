@@ -97,11 +97,11 @@ app.use((req, res, next) => {
 
 app.use("/", userRouter);
 
-
+/*
 // ✅ ROOT
 app.get("/", (req, res) => {
   res.send("Hi I am root");
-});
+});*/
 
 
 // ================= LISTINGS =================
@@ -246,7 +246,6 @@ app.delete(
     res.redirect(`/listings/${id}`);
   })
 );
-
 
 // ================= ERROR HANDLING =================
 
