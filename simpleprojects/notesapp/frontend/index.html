@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notes App</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h2 class="logo">
+       <i class="fa-solid fa-book-open"></i>
+        NotesApp</h2>
+
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Login</a></li>
+      <li><a href="#">Signup</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1>Welcome to Notes App 🌿</h1>
+    <p>Start writing your notes...</p>
+    <div class="main">
+
+  <!-- Categories -->
+  <div class="categories">
+    <button data-cat="work">Work</button>
+    <button data-cat="personal">Personal</button>
+    <button data-cat="study">Study</button>
+  </div>
+
+  <!-- Add Note -->
+  <div class="add-note">
+    <input type="text" id="noteInput" placeholder="Write your note...">
+    <button id="addBtn">Add</button>
+  </div>
+
+  <!-- Notes Display -->
+  <div id="notesContainer"></div>
+
+</div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
