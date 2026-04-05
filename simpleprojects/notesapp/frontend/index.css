@@ -50,9 +50,12 @@ body {
 
 .categories {
   margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.categories button {
+.categories p {
   padding: 8px 15px;
   margin-right: 10px;
   background-color: #d4f8d4;
@@ -61,36 +64,114 @@ body {
   border-radius: 5px;
 }
 
-.categories button:hover {
+.categories p:hover {
   background-color: #a8e6a3;
 }
 
-.add-note {
-  margin-bottom: 20px;
+
+/* notes  div*/
+
+
+/* Main box */
+.notes-section {
+  width: 350px;
+  padding: 20px;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+
+  border-radius: 15px;
+  border: 1px solid rgba(33, 31, 31, 0.3);
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+
+  display: inline-block;
 }
 
-.add-note input {
-  padding: 8px;
-  width: 60%;
+/* Inputs */
+.input-group {
+  margin-bottom: 15px;
+  border: #4CAF50 1px solid;
+   
 }
+.input-group:hover{
+  border: #4CAF50 2px solid;
+}
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
 
-.add-note button {
-  padding: 8px 12px;
-  background-color: #4CAF50;
-  color: white;
   border: none;
+  outline: none;
+
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.4);
+}
+
+/* Textarea size */
+textarea {
+  height: 80px;
+  resize: none;
+
+}
+
+/* Button */
+.save-btn {
+  width: 100%;
+  padding: 10px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: linear-gradient(45deg, #4CAF50, #66bb6a);
+  color: white;
+
   cursor: pointer;
 }
 
-#notesContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.save-btn:hover {
+  background: linear-gradient(45deg, #255a28, #1f4c20);
 }
 
+/* notes list css to be added displyed here*/
+#notesContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* note card */
 .noteBox {
   background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* title */
+.noteTitle {
+  background: #4CAF50;
+  color: white;
+  padding: 8px;
+  font-weight: bold;
+}
+
+/* desc */
+.noteDesc {
   padding: 10px;
-  border-left: 5px solid #4CAF50;
-  border-radius: 5px;
+}
+
+/* buttons */
+.noteActions {
+  padding: 10px;
+}
+
+.noteActions button {
+  margin-right: 5px;
+  padding: 5px 8px;
+  border: none;
+  cursor: pointer;
 }

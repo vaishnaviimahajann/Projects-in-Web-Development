@@ -29,21 +29,36 @@
 
   <!-- Categories -->
   <div class="categories">
-    <button data-cat="work">Work</button>
-    <button data-cat="personal">Personal</button>
-    <button data-cat="study">Study</button>
+    <p data-cat="work">Work</p>
+    <p data-cat="personal">Personal</p>
+    <p data-cat="study">Study</p>
   </div>
 
-  <!-- Add Note -->
-  <div class="add-note">
-    <input type="text" id="noteInput" placeholder="Write your note...">
-    <button id="addBtn">Add</button>
+  <!-- Notes Section to add new notes -->
+  <div class="notes-section">
+         <div class="input-group">
+             <input type="text" placeholder="Note Title">
+          </div>
+
+         <div class="input-group">
+             <textarea placeholder="Write your notes..."></textarea>
+          </div>
+
+          <button class="save-btn">Save Note</button>
+
   </div>
 
-  <!-- Notes Display -->
-  <div id="notesContainer"></div>
 
-</div>
+  <!-- Notes Container  to display notes-->
+  <div id="notesContainer">
+    
+
+
+  </div>
+  
+
+
+
   </div>
 
   <script src="index.js"></script>
