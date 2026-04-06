@@ -11,6 +11,9 @@ body {
   align-items: center;
   background-color: #4CAF50;
   padding: 10px 20px;
+ position: sticky;   /* 🔥 sticky */
+  top: 0;             /* top se chipka do */
+  z-index: 1000;      /* upar dikhne ke liye */
 }
 
 .logo {
@@ -23,111 +26,77 @@ body {
   gap: 20px;
 }
 
-.nav-links li {
-  list-style: none;
-}
-
 .nav-links a {
   text-decoration: none;
   color: white;
   font-weight: bold;
 }
 
-/* Hover effect */
 .nav-links a:hover {
   text-decoration: underline;
 }
 
-/* Main content */
+/* Container */
 .container {
-  padding: 20px;
   text-align: center;
-}
-
-.main {
   padding: 20px;
 }
 
+/* Categories */
 .categories {
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  margin: 20px 0;
 }
 
 .categories p {
+  display: inline-block;
   padding: 8px 15px;
-  margin-right: 10px;
+  margin: 5px;
   background-color: #d4f8d4;
-  border: none;
-  cursor: pointer;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .categories p:hover {
   background-color: #a8e6a3;
 }
 
-
-/* notes  div*/
-
-
-/* Main box */
+/* Notes input box */
 .notes-section {
   width: 350px;
+  margin: 20px auto;
   padding: 20px;
-
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
-
   border-radius: 15px;
-  border: 1px solid rgba(33, 31, 31, 0.3);
-
+  border: 1px solid rgba(0,0,0,0.2);
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-
-  display: inline-block;
 }
 
-/* Inputs */
-.input-group {
-  margin-bottom: 15px;
-  border: #4CAF50 1px solid;
-   
-}
-.input-group:hover{
-  border: #4CAF50 2px solid;
-}
-.input-group input,
-.input-group textarea {
+.notes-section input,
+.notes-section textarea {
   width: 100%;
   padding: 10px;
-
-  border: none;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
   outline: none;
-
-  border-radius: 10px;
-
-  background: rgba(255,255,255,0.4);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.6);
+  box-sizing: border-box; /* 🔥 FIX */
 }
 
-/* Textarea size */
 textarea {
   height: 80px;
   resize: none;
-
 }
 
 /* Button */
 .save-btn {
   width: 100%;
   padding: 10px;
-
   border: none;
   border-radius: 10px;
-
   background: linear-gradient(45deg, #4CAF50, #66bb6a);
   color: white;
-
   cursor: pointer;
 }
 
@@ -135,43 +104,93 @@ textarea {
   background: linear-gradient(45deg, #255a28, #1f4c20);
 }
 
-/* notes list css to be added displyed here*/
+/* Notes container */
 #notesContainer {
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-top: 20px;
+ grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  padding: 10px;
 }
 
-/* note card */
+/* Note card */
 .noteBox {
   background: white;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 300px;            /* fixed height */
+  transition: transform 0.2s ease;
 }
 
-/* title */
+.noteBox:hover {
+  transform: translateY(-5px);
+}
+
+/* Title */
 .noteTitle {
-  background: #4CAF50;
-  color: white;
+  background: #9cea9c;
+  color: rgb(4, 0, 0);
   padding: 8px;
   font-weight: bold;
 }
 
-/* desc */
+/* Description */
 .noteDesc {
   padding: 10px;
+  flex-grow: 1;
+  overflow-y: auto;  /* Scroll if content exceeds */
 }
 
-/* buttons */
+/* Buttons */
 .noteActions {
   padding: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .noteActions button {
-  margin-right: 5px;
+  margin-left: 5px;
   padding: 5px 8px;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Footer */
+footer {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  height: 100%;
+
+}
+
+footer .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+footer .social-icons a {
+  color: white;
+  font-size: 24px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+footer .social-icons a:hover {
+  color: #ffd700; /* golden hover effect */
+  transform: scale(1.2);
+}
+
+footer p {
+  margin: 0;
+  font-size: 14px;
 }

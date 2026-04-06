@@ -4,14 +4,15 @@
   <title>Notes App</title>
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
   <!-- Navbar -->
   <nav class="navbar">
     <h2 class="logo">
-       <i class="fa-solid fa-book-open"></i>
-        NotesApp</h2>
+      <i class="fa-solid fa-book-open"></i> NotesApp
+    </h2>
 
     <ul class="nav-links">
       <li><a href="#">Home</a></li>
@@ -21,46 +22,40 @@
     </ul>
   </nav>
 
-  <!-- Main Content -->
+  <!-- Main -->
   <div class="container">
     <h1>Welcome to Notes App 🌿</h1>
     <p>Start writing your notes...</p>
-    <div class="main">
 
-  <!-- Categories -->
-  <div class="categories">
-    <p data-cat="work">Work</p>
-    <p data-cat="personal">Personal</p>
-    <p data-cat="study">Study</p>
-  </div>
+    <!-- Categories -->
+    <div class="categories">
+      <p>Work</p>
+      <p>Personal</p>
+      <p>Study</p>
+    </div>
 
-  <!-- Notes Section to add new notes -->
-  <div class="notes-section">
-         <div class="input-group">
-             <input type="text" placeholder="Note Title">
-          </div>
+    <!-- Add Note -->
+    <div class="notes-section">
+      <input  id="titleInput" type="text" placeholder="Note Title">
+      <textarea id="descInput" placeholder="Write your notes..."></textarea>
+      <button class="save-btn">Save Note</button>
+    </div>
 
-         <div class="input-group">
-             <textarea placeholder="Write your notes..."></textarea>
-          </div>
-
-          <button class="save-btn">Save Note</button>
+    <!-- Notes Display -->
+    <div id="notesContainer"></div>
 
   </div>
 
 
-  <!-- Notes Container  to display notes-->
-  <div id="notesContainer">
-    
-
-
+    <!-- Footer -->
+<footer>
+  <div class="social-icons">
+    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="tel:+911234567890"><i class="fas fa-phone"></i></a>
   </div>
-  
-
-
-
-  </div>
-
+  <p>&copy; 2026 NotesApp. All Rights Reserved.</p>
+</footer>
   <script src="index.js"></script>
 </body>
 </html>
