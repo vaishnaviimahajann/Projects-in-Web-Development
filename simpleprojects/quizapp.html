@@ -1,0 +1,478 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML CSS Quiz</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #dff6f0;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .quiz-box {
+            background: #ffffff;
+            padding: 30px;
+            max-width: 750px;
+            margin: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #125257;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .question {
+            margin-bottom: 18px;
+            padding: 18px;
+            background: #edfdf9;
+            border-radius: 15px;
+            border: 2px solid #006d77;
+            transition: 0.3s;
+        }
+
+        .question:hover {
+            transform: translateY(-3px);
+        }
+
+        .question p {
+            font-weight: 600;
+            color: #023047;
+            margin-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            padding: 8px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        label:hover {
+            background: #c7f9f1;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: #006d77;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #004f55;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 22px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #006d77;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+<h2>HTML & CSS Quiz</h2>
+
+<form id="quizForm">
+
+<div class="question">
+<p>1. What is the full-form of HTML?</p>
+<label><input type="radio" name="q1" value="a"> Hyper Text Markup Language</label>
+<label><input type="radio" name="q1" value="b"> High Text Machine Language</label>
+<label><input type="radio" name="q1" value="c"> Home Tool Markup Language</label>
+</div>
+
+<div class="question">
+<p>2. Which tag is used for Heading?</p>
+<label><input type="radio" name="q2" value="a"> &lt;head&gt;</label>
+<label><input type="radio" name="q2" value="b"> &lt;h1&gt;</label>
+<label><input type="radio" name="q2" value="c"> &lt;title&gt;</label>
+</div>
+
+<div class="question">
+<p>3. Which tag is used for Paragraph?</p>
+<label><input type="radio" name="q3" value="a"> &lt;p&gt;</label>
+<label><input type="radio" name="q3" value="b"> &lt;text&gt;</label>
+<label><input type="radio" name="q3" value="c"> &lt;para&gt;</label>
+</div>
+
+<div class="question">
+<p>4. Which tag is used to add Image?</p>
+<label><input type="radio" name="q4" value="a"> &lt;image&gt;</label>
+<label><input type="radio" name="q4" value="b"> &lt;img&gt;</label>
+<label><input type="radio" name="q4" value="c"> &lt;src&gt;</label>
+</div>
+
+<div class="question">
+<p>5. Link tag?</p>
+<label><input type="radio" name="q5" value="a"> &lt;a&gt;</label>
+<label><input type="radio" name="q5" value="b"> &lt;link&gt;</label>
+<label><input type="radio" name="q5" value="c"> &lt;href&gt;</label>
+</div>
+
+<div class="question">
+<p>6. What is the full form of CSS?</p>
+<label><input type="radio" name="q6" value="a"> Computer Style Sheets</label>
+<label><input type="radio" name="q6" value="b"> Cascading Style Sheets</label>
+<label><input type="radio" name="q6" value="c"> Creative Style System</label>
+</div>
+
+<div class="question">
+<p>7. Text color change property?</p>
+<label><input type="radio" name="q7" value="a"> font-color</label>
+<label><input type="radio" name="q7" value="b"> color</label>
+<label><input type="radio" name="q7" value="c"> text-color</label>
+</div>
+
+<div class="question">
+<p>8. Background color property?</p>
+<label><input type="radio" name="q8" value="a"> background-color</label>
+<label><input type="radio" name="q8" value="b"> bg-color</label>
+<label><input type="radio" name="q8" value="c"> color-background</label>
+</div>
+
+<div class="question">
+<p>9. Which tag is used to link CSS file?</p>
+<label><input type="radio" name="q9" value="a"> &lt;script&gt;</label>
+<label><input type="radio" name="q9" value="b"> &lt;style&gt;</label>
+<label><input type="radio" name="q9" value="c"> &lt;link&gt;</label>
+</div>
+
+<div class="question">
+<p>10. Class selector symbol?</p>
+<label><input type="radio" name="q10" value="a"> #</label>
+<label><input type="radio" name="q10" value="b"> .</label>
+<label><input type="radio" name="q10" value="c"> *</label>
+</div>
+
+<button type="button" onclick="checkResult()">Submit Quiz</button>
+
+</form>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+function checkResult() {
+
+    let score = 0;
+
+    let answers = {
+        q1: "a",
+        q2: "b",
+        q3: "a",
+        q4: "b",
+        q5: "a",
+        q6: "b",
+        q7: "b",
+        q8: "a",
+        q9: "c",
+        q10:"b"
+    };
+
+    for (let key in answers) {
+
+        let selectedOption = document.querySelector(
+            'input[name="' + key + '"]:checked'
+        );
+
+        if (selectedOption) {
+            if (selectedOption.value === answers[key]) {
+                score++;
+            }
+        }
+    }
+
+    document.getElementById("result").innerText =
+        "Your Score: " + score + " / 10";
+}
+</script>
+
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML CSS JS QUIZ</title>
+
+<style>
+
+body{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:#e8f5e9;
+font-family:Arial, sans-serif;
+}
+
+h1{
+margin-bottom:20px;
+color:#2e7d32;
+}
+
+.quiz-box{
+background:white;
+padding:30px;
+border-radius:12px;
+width:420px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+#question{
+color:#333;
+margin-bottom:15px;
+}
+
+.option{
+display:block;
+width:100%;
+margin:10px 0;
+padding:12px;
+cursor:pointer;
+border:none;
+border-radius:8px;
+background:#f1f8e9;
+font-size:16px;
+transition:0.3s;
+}
+
+.option:hover{
+background:#c8e6c9;
+}
+
+#nextBtn{
+margin-top:15px;
+padding:12px 25px;
+font-size:16px;
+cursor:pointer;
+border:none;
+border-radius:8px;
+background:#43a047;
+color:white;
+transition:0.3s;
+}
+
+#nextBtn:hover{
+background:#2e7d32;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>HTML CSS JS QUIZ</h1>
+
+<div class="quiz-box">
+
+<h2 id="question">Question</h2>
+
+<button class="option"></button>
+<button class="option"></button>
+<button class="option"></button>
+<button class="option"></button>
+
+<button id="nextBtn">Next</button>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"What does HTML stand for?",
+options:[
+"Hyper Text Markup Language",
+"Home Tool Markup Language",
+"Hyperlinks and Text Mark Language",
+"Hyper Transfer Mark Language"
+],
+answer:0
+},
+
+{
+question:"Which tag is used to create a hyperlink in HTML?",
+options:[
+"<a>",
+"<link>",
+"<href>",
+"<h1>"
+],
+answer:0
+},
+
+{
+question:"Which CSS property is used to change text color?",
+options:[
+"color",
+"text-style",
+"font-color",
+"background-color"
+],
+answer:0
+},
+
+{
+question:"Which CSS property controls the text size?",
+options:[
+"font-size",
+"text-size",
+"font-style",
+"text-style"
+],
+answer:0
+},
+
+{
+question:"Which HTML tag is used for the largest heading?",
+options:[
+"<h1>",
+"<h6>",
+"<heading>",
+"<head>"
+],
+answer:0
+},
+
+{
+question:"Inside which HTML tag do we write JavaScript?",
+options:[
+"<script>",
+"<javascript>",
+"<js>",
+"<code>"
+],
+answer:0
+},
+
+{
+question:"Which keyword is used to declare a variable in JavaScript?",
+options:[
+"let",
+"var",
+"const",
+"All of the above"
+],
+answer:3
+},
+
+{
+question:"Which method is used to print something in the browser console?",
+options:[
+"console.log()",
+"print()",
+"log.console()",
+"write()"
+],
+answer:0
+},
+
+{
+question:"Which symbol is used for comments in JavaScript?",
+options:[
+"//",
+"<!-- -->",
+"**",
+"##"
+],
+answer:0
+},
+
+{
+question:"Which HTML tag is used to insert an image?",
+options:[
+"<img>",
+"<image>",
+"<pic>",
+"<src>"
+],
+answer:0
+}
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let selected = -1;
+
+const questionElement = document.getElementById("question");
+const options = document.querySelectorAll(".option");
+const nextBtn = document.getElementById("nextBtn");
+
+function loadQuestion(){
+
+selected = -1;
+
+let q = questions[currentQuestion];
+
+questionElement.innerText = q.question;
+
+options.forEach((btn,index)=>{
+btn.innerText = q.options[index];
+});
+
+}
+
+options.forEach((btn,index)=>{
+
+btn.addEventListener("click",function(){
+selected = index;
+});
+
+});
+
+nextBtn.addEventListener("click",function(){
+
+if(selected === questions[currentQuestion].answer){
+score++;
+}
+
+currentQuestion++;
+
+if(currentQuestion < questions.length){
+loadQuestion();
+}
+else{
+document.querySelector(".quiz-box").innerHTML =
+"<h2>Your Score : "+score+" / "+questions.length+"</h2>";
+}
+
+});
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
+

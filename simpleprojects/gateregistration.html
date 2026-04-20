@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GATE Registration</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #e0e7ff, #f8fafc);
+        }
+
+        /* 🔹 HEADER */
+        header {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .nav-buttons button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .login {
+            background: #6366f1;
+            color: white;
+        }
+
+        .logout {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* 🔹 FORM CARD */
+        .container {
+            width: 480px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #f9fafb;
+        }
+
+        input:focus, select:focus {
+            border-color: #6366f1;
+            outline: none;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .row input {
+            width: 100%;
+        }
+
+        button.submit-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: linear-gradient(to right, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button.submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 GATE Registration Portal 📄</h1>
+    <div class="nav-buttons">
+        <button class="login">Login</button>
+        <button class="logout">Logout</button>
+    </div>
+</header>
+
+<div class="container">
+    <h2>Apply for GATE Exam</h2>
+
+    <form onsubmit="return validateForm()">
+
+        <input type="text" id="name" placeholder="Full Name">
+        <div id="nameError" class="error"></div>
+
+        <div class="row">
+            <input type="email" id="email" placeholder="Email">
+            <input type="text" id="phone" placeholder="Phone">
+        </div>
+        <div id="emailError" class="error"></div>
+        <div id="phoneError" class="error"></div>
+
+        <div class="row">
+            <input type="date" id="dob">
+            <select id="gender">
+                <option value="">Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </div>
+
+        <input type="text" id="college" placeholder="College Name">
+        <input type="text" id="address" placeholder="Address">
+
+        <select id="branch">
+            <option value="">Select Branch</option>
+            <option>CSE</option>
+            <option>IT</option>
+            <option>Mechanical</option>
+            <option>Civil</option>
+        </select>
+        <div id="branchError" class="error"></div>
+
+        <input type="password" id="password" placeholder="Create Password">
+        <div id="passwordError" class="error"></div>
+
+        <button class="submit-btn">Register</button>
+
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let branch = document.getElementById("branch").value;
+    let password = document.getElementById("password").value;
+
+    let isValid = true;
+
+    if (name === "") {
+        document.getElementById("nameError").innerHTML = "Enter name";
+        isValid = false;
+    }
+
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.match(emailPattern)) {
+        document.getElementById("emailError").innerHTML = "Invalid email";
+        isValid = false;
+    }
+
+    let phonePattern = /^[0-9]{10}$/;
+    if (!phone.match(phonePattern)) {
+        document.getElementById("phoneError").innerHTML = "Invalid phone Number";
+        isValid = false;
+    }
+
+    if (branch === "") {
+        document.getElementById("branchError").innerHTML = "Select branch";
+        isValid = false;
+    }
+
+    if (password.length < 6) {
+        document.getElementById("passwordError").innerHTML = "Min 6 chars";
+        isValid = false;
+    }
+
+    if (isValid) {
+        alert("🎉 Registration Successful!");
+    }
+
+    return isValid;
+}
+</script>
+
+</body>
+</html>
