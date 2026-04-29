@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Food Order</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f5f5f5;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+.container{
+display:flex;
+gap:20px;
+}
+
+.menu{
+width:60%;
+background:white;
+padding:15px;
+border-radius:8px;
+}
+
+.cart{
+width:40%;
+background:white;
+padding:15px;
+border-radius:8px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+padding:10px;
+border-bottom:1px solid #ddd;
+}
+
+button{
+background:#ff6b6b;
+color:white;
+border:none;
+padding:5px 10px;
+cursor:pointer;
+border-radius:5px;
+}
+
+.total{
+font-size:20px;
+font-weight:bold;
+margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Online Food Ordering</h1>
+
+<div class="container">
+
+<div class="menu">
+<h2>Menu</h2>
+<div id="menu"></div>
+</div>
+
+<div class="cart">
+<h2>Cart</h2>
+<div id="cart"></div>
+<div class="total" id="total">Total: ₹0</div>
+</div>
+
+</div>
+
+<script>
+
+let cart = []
+
+fetch("http://localhost:3000/menu")
+.then(res=>res.json())
+.then(data=>{
+
+let menuHTML=""
+
+data.forEach(item=>{
+menuHTML+=`
+<div class="item">
+<div>
+${item.name} - ₹${item.price}
+</div>
+<button onclick='addToCart(${JSON.stringify(item)})'>
+Add
+</button>
+</div>
+`
+})
+
+document.getElementById("menu").innerHTML=menuHTML
+
+})
+
+function addToCart(item){
+
+let existing = cart.find(i=>i.id===item.id)
+
+if(existing){
+existing.qty++
+}else{
+cart.push({...item,qty:1})
+}
+
+renderCart()
+
+}
+
+function renderCart(){
+
+let cartHTML=""
+let total=0
+
+cart.forEach(item=>{
+
+total += item.price * item.qty
+
+cartHTML+=`
+<div class="item">
+<div>
+${item.name} x ${item.qty}
+</div>
+<div>
+₹${item.price * item.qty}
+</div>
+</div>
+`
+
+})
+
+document.getElementById("cart").innerHTML=cartHTML
+document.getElementById("total").innerText="Total: ₹"+total
+
+}
+
+</script>
+
+</body>
+</html>
