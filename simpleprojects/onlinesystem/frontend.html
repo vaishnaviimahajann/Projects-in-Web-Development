@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Appointment Booking</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f6f9;
+padding:20px;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input,button{
+width:100%;
+padding:10px;
+margin-top:10px;
+}
+
+button{
+background:#4CAF50;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.appointment{
+padding:10px;
+border-bottom:1px solid #ddd;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Book Appointment</h2>
+
+<input type="text" id="name" placeholder="Enter Name">
+<input type="date" id="date">
+<input type="time" id="time">
+
+<button onclick="bookAppointment()">Book Appointment</button>
+
+<h3>Appointments</h3>
+<div id="list"></div>
+
+</div>
+
+<script>
+
+function loadAppointments(){
+
+fetch("http://localhost:3000/appointments")
+.then(res=>res.json())
+.then(data=>{
+
+let html=""
+
+data.forEach(item=>{
+html+=`
+<div class="appointment">
+${item.name} - ${item.date} - ${item.time}
+</div>
+`
+})
+
+document.getElementById("list").innerHTML=html
+
+})
+
+}
+
+function bookAppointment(){
+
+const name=document.getElementById("name").value
+const date=document.getElementById("date").value
+const time=document.getElementById("time").value
+
+fetch("http://localhost:3000/book",{
+
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+name,
+date,
+time
+})
+
+})
+.then(res=>res.json())
+.then(data=>{
+
+alert("Appointment Booked Successfully ✅")
+
+loadAppointments()
+
+})
+
+}
+
+loadAppointments()
+
+</script>
+
+</body>
+</html>
