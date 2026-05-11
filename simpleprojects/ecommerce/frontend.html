@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ElectroNest – Appliances & Accessories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      color: #1a1a2e;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ANNOUNCEMENT BAR */
+    .announce {
+      background: #ff6b35;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    /* HEADER */
+    header {
+      background: white;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: auto;
+      padding: 0 32px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ff6b35;
+    }
+
+    .logo span { color: #1a1a2e; }
+
+    nav { display: flex; gap: 28px; }
+
+    nav a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #555;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active { color: #ff6b35; }
+
+    .header-right { display: flex; align-items: center; gap: 14px; }
+
+    .search-box {
+      background: #f5f7fa;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-box input {
+      background: none;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      width: 180px;
+      font-size: 0.85rem;
+      color: #1a1a2e;
+    }
+
+    .search-box input::placeholder { color: #aaa; }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #f5f7fa;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .icon-btn:hover { border-color: #ff6b35; }
+
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      background: #ff6b35;
+      color: white;
+      border-radius: 50%;
+      font-size: 0.65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: #ff6b35;
+      color: white;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: #e85a25; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #fff8f5 0%, #fff 60%, #f0f4ff 100%);
+      padding: 70px 32px;
+    }
+
+    .hero-inner {
+      max-width: 1280px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #fff0ea;
+      color: #ff6b35;
+      border: 1px solid #ffd0bc;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      color: #1a1a2e;
+    }
+
+    .hero h1 span { color: #ff6b35; }
+
+    .hero p {
+      color: #666;
+      font-size: 0.98rem;
+      line-height: 1.8;
+      max-width: 440px;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions { display: flex; gap: 14px; align-items: center; }
+
+    .btn-outline {
+      border: 2px solid #e0e0e0;
+      color: #1a1a2e;
+      padding: 9px 22px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      background: white;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.2s;
+    }
+
+    .btn-outline:hover { border-color: #ff6b35; color: #ff6b35; }
+
+    .hero-stats {
+      display: flex;
+      gap: 36px;
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ff6b35;
+    }
+
+    .stat-label { font-size: 0.78rem; color: #888; margin-top: 2px; }
+
+    /* Hero Visual */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(255,107,53,0.12);
+      text-align: center;
+      width: 100%;
+      max-width: 360px;
+      border: 1px solid #ffe8de;
+    }
+
+    .hero-product-emoji { font-size: 6rem; display: block; margin-bottom: 16px; }
+
+    .hero-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+
+    .hero-card .price {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ff6b35;
+      margin: 8px 0;
+    }
+
+    .old-price { color: #aaa; font-size: 0.9rem; text-decoration: line-through; margin-left: 6px; font-weight: 400; }
+
+    .discount-badge {
+      background: #ff6b35;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-left: 8px;
+    }
+
+    .floating-tag {
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      font-size: 0.78rem;
+    }
+
+    .stars { color: #f59e0b; }
+
+    /* SECTION COMMON */
+    .section { max-width: 1280px; margin: 0 auto; padding: 60px 32px; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 32px;
+    }
+
+    .section-head h2 { font-size: 1.8rem; font-weight: 800; color: #1a1a2e; }
+    .section-head h2 span { color: #ff6b35; }
+
+    .view-all { font-size: 0.85rem; color: #ff6b35; font-weight: 600; }
+    .view-all:hover { text-decoration: underline; }
+
+    /* CATEGORIES */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+
+    .cat-card {
+      background: white;
+      border: 1px solid #e8e8e8;
+      border-radius: 14px;
+      padding: 24px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .cat-card:hover {
+      border-color: #ff6b35;
+      box-shadow: 0 8px 24px rgba(255,107,53,0.12);
+      transform: translateY(-4px);
+    }
+
+    .cat-icon { font-size: 2.2rem; margin-bottom: 10px; display: block; }
+    .cat-name { font-size: 0.82rem; font-weight: 600; color: #1a1a2e; }
+    .cat-count { font-size: 0.72rem; color: #aaa; margin-top: 3px; }
+
+    /* PRODUCTS */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #e8e8e8;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+
+    .product-img {
+      background: #f5f7fa;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+    }
+
+    .tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .tag-new { background: #dcfce7; color: #16a34a; }
+    .tag-sale { background: #fee2e2; color: #dc2626; }
+    .tag-hot { background: #fff7ed; color: #ea580c; }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      border: 1px solid #e0e0e0;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .wishlist-btn:hover { border-color: #ff6b35; }
+
+    .product-body { padding: 16px; }
+
+    .product-brand {
+      font-size: 0.72rem;
+      color: #ff6b35;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .product-name { font-weight: 700; font-size: 0.9rem; margin: 5px 0 4px; color: #1a1a2e; }
+    .product-desc { font-size: 0.78rem; color: #888; line-height: 1.5; margin-bottom: 10px; }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 14px;
+    }
+
+    .rating-count { font-size: 0.72rem; color: #aaa; }
+
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+
+    .price-wrap .current { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; }
+    .price-wrap .original { font-size: 0.75rem; color: #aaa; text-decoration: line-through; }
+
+    .add-btn {
+      background: #fff0ea;
+      border: 1px solid #ffd0bc;
+      color: #ff6b35;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .add-btn:hover { background: #ff6b35; color: white; border-color: #ff6b35; }
+
+    /* PROMO BANNER */
+    .promo-banner {
+      background: linear-gradient(120deg, #ff6b35, #ff9a5c);
+      margin: 0 32px 60px;
+      border-radius: 20px;
+      padding: 56px 60px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .promo-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.8);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .promo-banner h2 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .promo-banner p { color: rgba(255,255,255,0.85); font-size: 0.95rem; max-width: 400px; }
+
+    .promo-actions { display: flex; gap: 12px; margin-top: 24px; }
+
+    .btn-white {
+      background: white;
+      color: #ff6b35;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 11px 24px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .btn-white:hover { background: #fff0ea; }
+
+    .btn-white-outline {
+      background: transparent;
+      color: white;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: 2px solid rgba(255,255,255,0.5);
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .promo-right { text-align: center; }
+    .promo-big { font-size: 6rem; font-weight: 800; color: white; line-height: 1; }
+    .promo-sub2 { color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+
+    /* FEATURES BAR */
+    .features-bar {
+      max-width: 1280px;
+      margin: 0 auto 60px;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .feature-item {
+      background: white;
+      border: 1px solid #e8e8e8;
+      border-radius: 14px;
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .feature-icon { font-size: 1.8rem; }
+    .feature-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+    .feature-desc { font-size: 0.78rem; color: #888; }
+
+    /* NEWSLETTER */
+    .newsletter {
+      background: #fff8f5;
+      border-top: 1px solid #ffe8de;
+      border-bottom: 1px solid #ffe8de;
+      padding: 60px 32px;
+      text-align: center;
+    }
+
+    .newsletter h2 { font-size: 1.8rem; font-weight: 800; color: #1a1a2e; margin-bottom: 10px; }
+    .newsletter h2 span { color: #ff6b35; }
+    .newsletter p { color: #888; margin-bottom: 28px; font-size: 0.92rem; }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: auto;
+    }
+
+    .email-form input {
+      flex: 1;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .email-form input:focus { border-color: #ff6b35; }
+
+    /* FOOTER */
+    footer {
+      background: #1a1a2e;
+      color: #ccc;
+      padding: 64px 32px 32px;
+    }
+
+    .footer-inner { max-width: 1280px; margin: auto; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid #2a2a40;
+      margin-bottom: 32px;
+    }
+
+    .footer-logo { font-size: 1.5rem; font-weight: 800; color: #ff6b35; margin-bottom: 14px; display: block; }
+    .footer-logo span { color: white; }
+    .footer-brand p { font-size: 0.84rem; line-height: 1.7; max-width: 280px; color: #888; }
+
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      background: #2a2a40;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .social-btn:hover { background: #ff6b35; }
+
+    .footer-col h4 { font-weight: 700; font-size: 0.88rem; margin-bottom: 18px; color: white; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { font-size: 0.83rem; color: #888; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: #ff6b35; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p { font-size: 0.8rem; color: #555; }
+
+    .payment-icons { display: flex; gap: 8px; }
+
+    .pay-badge {
+      background: #2a2a40;
+      border-radius: 5px;
+      padding: 5px 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #aaa;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .categories-grid { grid-template-columns: repeat(3, 1fr); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .promo-banner { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { display: none; }
+      .hero h1 { font-size: 2rem; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: 1fr; }
+      .features-bar { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .search-box { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announce">🚀 Free Delivery on orders above ₹999 &nbsp;|&nbsp; Use code NEST15 for 15% off &nbsp;|&nbsp; EMI Available on all products</div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="#">Electro<span>Nest</span></a>
+      <nav>
+        <a href="#" class="active">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#products">Products</a>
+        <a href="#deals">Deals</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-right">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" placeholder="Search appliances..."/>
+        </div>
+        <div class="icon-btn">❤️</div>
+        <div class="icon-btn">
+          🛒
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <button class="btn-primary">Sign In</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">⚡ New Arrivals – 2026 Collection</div>
+        <h1>Premium <span>Appliances</span> for Modern Homes</h1>
+        <p>Discover our curated collection of high-performance kitchen appliances, smart gadgets, and home accessories — engineered for every household.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
+          <button class="btn-outline" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Browse Categories</button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">12K+</div>
+            <div class="stat-label">Products</div>
+          </div>
+          <div>
+            <div class="stat-num">98%</div>
+            <div class="stat-label">Happy Customers</div>
+          </div>
+          <div>
+            <div class="stat-num">24hr</div>
+            <div class="stat-label">Fast Delivery</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-tag">
+          <div style="color:#aaa;font-size:0.7rem">Top Rated</div>
+          <div class="stars">★★★★★</div>
+          <div style="font-size:0.7rem;color:#aaa">4.9 / 5.0</div>
+        </div>
+        <div class="hero-card">
+          <span class="hero-product-emoji">🍳</span>
+          <h3>Smart Air Fryer Pro X</h3>
+          <div class="price">₹8,499 <span class="old-price">₹13,999</span><span class="discount-badge">-39%</span></div>
+          <button class="btn-primary" style="width:100%;margin-top:14px" onclick="addToCart(this)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <div class="section" id="categories">
+    <div class="section-head">
+      <h2>Shop by <span>Category</span></h2>
+      <a class="view-all" href="#">View All →</a>
+    </div>
+    <div class="categories-grid">
+      <div class="cat-card"><span class="cat-icon">🍳</span><div class="cat-name">Kitchen</div><div class="cat-count">1,240 items</div></div>
+      <div class="cat-card"><span class="cat-icon">❄️</span><div class="cat-name">Refrigerators</div><div class="cat-count">340 items</div></div>
+      <div class="cat-card"><span class="cat-icon">👕</span><div class="cat-name">Washing</div><div class="cat-count">185 items</div></div>
+      <div class="cat-card"><span class="cat-icon">🌀</span><div class="cat-name">Air Conditioners</div><div class="cat-count">290 items</div></div>
+      <div class="cat-card"><span class="cat-icon">📺</span><div class="cat-name">Entertainment</div><div class="cat-count">620 items</div></div>
+      <div class="cat-card"><span class="cat-icon">🔌</span><div class="cat-name">Accessories</div><div class="cat-count">2,100 items</div></div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="section" id="products">
+    <div class="section-head">
+      <h2>Featured <span>Products</span></h2>
+      <a class="view-all" href="#">View All →</a>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img">🍳<span class="tag tag-hot">🔥 HOT</span><span class="wishlist-btn" onclick="toggleWish(this)">♡</span></div>
+        <div class="product-body">
+          <div class="product-brand">Philips</div>
+          <div class="product-name">HD Air Fryer 5.2L</div>
+          <div class="product-desc">Smart digital controls, 7 presets, rapid air technology.</div>
+          <div class="product-rating"><span class="stars">★★★★★</span><span class="rating-count">(1.2k)</span></div>
+          <div class="product-footer">
+            <div class="price-wrap"><div class="current">₹7,999</div><div class="original">₹12,500</div></div>
+            <button class="add-btn" onclick="addToCart(this)">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">☕<span class="tag tag-new">✨ NEW</span><span class="wishlist-btn" onclick="toggleWish(this)">♡</span></div>
+        <div class="product-body">
+          <div class="product-brand">DeLonghi</div>
+          <div class="product-name">Espresso Coffee Maker</div>
+          <div class="product-desc">15-bar pressure, milk frother, built-in grinder.</div>
+          <div class="product-rating"><span class="stars">★★★★☆</span><span class="rating-count">(876)</span></div>
+          <div class="product-footer">
+            <div class="price-wrap"><div class="current">₹14,299</div><div class="original">₹19,000</div></div>
+            <button class="add-btn" onclick="addToCart(this)">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">🌀<span class="tag tag-sale">🏷 SALE</span><span class="wishlist-btn" onclick="toggleWish(this)">♡</span></div>
+        <div class="product-body">
+          <div class="product-brand">Dyson</div>
+          <div class="product-name">Cyclone V11 Vacuum</div>
+          <div class="product-desc">60-min runtime, whole-machine filtration, LCD screen.</div>
+          <div class="product-rating"><span class="stars">★★★★★</span><span class="rating-count">(2.4k)</span></div>
+          <div class="product-footer">
+            <div class="price-wrap"><div class="current">₹38,990</div><div class="original">₹49,900</div></div>
+            <button class="add-btn" onclick="addToCart(this)">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">🧊<span class="tag tag-hot">🔥 HOT</span><span class="wishlist-btn" onclick="toggleWish(this)">♡</span></div>
+        <div class="product-body">
+          <div class="product-brand">Samsung</div>
+          <div class="product-name">French Door Fridge 591L</div>
+          <div class="product-desc">Twin Cooling Plus, SpaceMax, Wi-Fi enabled.</div>
+          <div class="product-rating"><span class="stars">★★★★★</span><span class="rating-count">(543)</span></div>
+          <div class="product-footer">
+            <div class="price-wrap"><div class="current">₹89,990</div><div class="original">₹1,05,000</div></div>
+            <button class="add-btn" onclick="addToCart(this)">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">🎧<span class="tag tag-new">✨ NEW</span><span class="wishlist-btn" onclick="toggleWish(this)">♡</span></div>
+        <div class="product-body">
+          <div class="product-brand">Sony</div>
+          <div class="product-name">WH-1000XM5 Headphones</div>
+          <div class="product-desc">Industry-leading ANC, 30hr battery, multipoint connect.</div>
+          <div class="product-rating"><span class="stars">★★★★★</span><span class="rating-count">(3.1k)</span></div>
+          <div class="product-footer">
+            <div class="price-wrap"><div class="current">₹24,990</div><div class="original">₹34,990</div></div>
+            <button class="add-btn" onclick="addToCart(this)">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">💡<span class="tag tag-sale">🏷 SALE</span><span class="wishlist-btn" onclick="toggleWish(this)">♡</span></div>
+        <div class="product-body">
+          <div class="product-brand">Philips Hue</div>
+          <div class="product-name">Smart Bulb Starter Kit</div>
+          <div class="product-desc">16M colors, voice control, works with Alexa & Google.</div>
+          <div class="product-rating"><span class="stars">★★★★☆</span><span class="rating-count">(988)</span></div>
+          <div class="product-footer">
+            <div class="price-wrap"><div class="current">₹4,299</div><div class="original">₹6,500</div></div>
+            <button class="add-btn" onclick="addToCart(this)">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">🍞<span class="tag tag-hot">🔥 HOT</span><span class="wishlist-btn" onclick="toggleWish(this)">♡</span></div>
+        <div class="product-body">
+          <div class="product-brand">Morphy Richards</div>
+          <div class="product-name">OTG Baking Oven 52L</div>
+          <div class="product-desc">Convection, rotisserie, 6 heating modes, stainless steel.</div>
+          <div class="product-rating"><span class="stars">★★★★☆</span><span class="rating-count">(729)</span></div>
+          <div class="product-footer">
+            <div class="price-wrap"><div class="current">₹9,799</div><div class="original">₹14,000</div></div>
+            <button class="add-btn" onclick="addToCart(this)">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">🤖<span class="tag tag-new">✨ NEW</span><span class="wishlist-btn" onclick="toggleWish(this)">♡</span></div>
+        <div class="product-body">
+          <div class="product-brand">iRobot</div>
+          <div class="product-name">Roomba j9+ Robot Vacuum</div>
+          <div class="product-desc">Auto empty base, carpet boost, smart mapping, AI.</div>
+          <div class="product-rating"><span class="stars">★★★★★</span><span class="rating-count">(1.8k)</span></div>
+          <div class="product-footer">
+            <div class="price-wrap"><div class="current">₹64,900</div><div class="original">₹79,900</div></div>
+            <button class="add-btn" onclick="addToCart(this)">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROMO BANNER -->
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px 60px" id="deals">
+    <div class="promo-banner">
+      <div>
+        <div class="promo-sub">⚡ Limited Time Offer</div>
+        <h2>Season Sale — Up to 40% Off on Premium Brands</h2>
+        <p>Stock up on top-rated appliances from Samsung, Philips, Dyson and more. Deals end Sunday.</p>
+        <div class="promo-actions">
+          <button class="btn-white">Grab Deals →</button>
+          <button class="btn-white-outline">See All Offers</button>
+        </div>
+      </div>
+      <div class="promo-right">
+        <div class="promo-big">40%</div>
+        <div class="promo-sub2">Maximum Discount</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES BAR -->
+  <div class="features-bar">
+    <div class="feature-item"><span class="feature-icon">🚚</span><div><div class="feature-title">Free Delivery</div><div class="feature-desc">On orders above ₹999</div></div></div>
+    <div class="feature-item"><span class="feature-icon">🔄</span><div><div class="feature-title">Easy Returns</div><div class="feature-desc">10-day return policy</div></div></div>
+    <div class="feature-item"><span class="feature-icon">🛡️</span><div><div class="feature-title">2 Year Warranty</div><div class="feature-desc">On all appliances</div></div></div>
+    <div class="feature-item"><span class="feature-icon">💳</span><div><div class="feature-title">Easy EMI</div><div class="feature-desc">0% on 6–12 months</div></div></div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter">
+    <h2>Stay in the <span>Loop</span></h2>
+    <p>Subscribe for exclusive deals, launch alerts, and home tech tips straight to your inbox.</p>
+    <div class="email-form">
+      <input type="email" placeholder="Enter your email address"/>
+      <button class="btn-primary">Subscribe</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-logo">Electro<span>Nest</span></span>
+          <p>Your trusted destination for premium home appliances and accessories. Quality products, unbeatable prices, fast delivery across India.</p>
+          <div class="footer-social">
+            <div class="social-btn">📘</div>
+            <div class="social-btn">📸</div>
+            <div class="social-btn">🐦</div>
+            <div class="social-btn">▶️</div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#">Kitchen Appliances</a></li>
+            <li><a href="#">Refrigerators</a></li>
+            <li><a href="#">Washing Machines</a></li>
+            <li><a href="#">Air Conditioners</a></li>
+            <li><a href="#">Entertainment</a></li>
+            <li><a href="#">Accessories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">Returns & Refunds</a></li>
+            <li><a href="#">Warranty Claims</a></li>
+            <li><a href="#">Installation Help</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 ElectroNest. All rights reserved.</p>
+        <div class="payment-icons">
+          <span class="pay-badge">UPI</span>
+          <span class="pay-badge">Visa</span>
+          <span class="pay-badge">MC</span>
+          <span class="pay-badge">EMI</span>
+          <span class="pay-badge">COD</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let cartCount = 0;
+
+    function addToCart(btn) {
+      cartCount++;
+      document.getElementById('cartCount').textContent = cartCount;
+      const original = btn.textContent;
+      btn.textContent = '✓ Added!';
+      btn.style.background = '#16a34a';
+      btn.style.color = 'white';
+      btn.style.borderColor = '#16a34a';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 1500);
+    }
+
+    function toggleWish(btn) {
+      btn.textContent = btn.textContent === '♡' ? '❤️' : '♡';
+    }
+
+    document.querySelectorAll('nav a').forEach(a => {
+      a.addEventListener('click', function() {
+        document.querySelectorAll('nav a').forEach(x => x.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
