@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Parking System</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+}
+
+.container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+margin-top:20px;
+}
+
+.slot{
+width:120px;
+height:120px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+border-radius:10px;
+color:white;
+font-weight:bold;
+}
+
+.available{
+background:green;
+}
+
+.occupied{
+background:red;
+}
+
+button{
+margin-top:5px;
+padding:5px;
+border:none;
+cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Smart Parking System</h1>
+
+<div class="container" id="slots"></div>
+
+<script>
+
+function loadSlots(){
+
+fetch("http://localhost:3000/slots")
+.then(res=>res.json())
+.then(data=>{
+
+let html=""
+
+data.forEach(slot=>{
+
+html+=`
+<div class="slot ${slot.status}">
+Slot ${slot.id}<br>
+${slot.status}
+
+<button onclick="toggleSlot(${slot.id},'${slot.status}')">
+${slot.status==="available"?"Book":"Free"}
+</button>
+
+</div>
+`
+
+})
+
+document.getElementById("slots").innerHTML=html
+
+})
+
+}
+
+function toggleSlot(id,status){
+
+if(status==="available"){
+
+fetch(`http://localhost:3000/book/${id}`,{
+method:"POST"
+})
+.then(()=>loadSlots())
+
+}else{
+
+fetch(`http://localhost:3000/free/${id}`,{
+method:"POST"
+})
+.then(()=>loadSlots())
+
+}
+
+}
+
+// auto refresh every 3 sec (real-time feel)
+setInterval(loadSlots,3000)
+
+loadSlots()
+
+</script>
+
+</body>
+</html>
