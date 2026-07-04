@@ -1,4 +1,5 @@
 // testing frontend build job
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -10,7 +11,7 @@ app.use(express.json());
 
 // testing docker build job
 
-mongoose.connect('mongodb://mongodb:27017/attendancedb')
+mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('MongoDB Connected! ✅'))
     .catch((err) => console.log('Connection Error:', err));
 

@@ -13,6 +13,8 @@ jobs:
     defaults:
       run:
         working-directory: ./simpleprojects/attendance-system/backend
+    env:
+      MONGO_URL: ${{ secrets.MONGO_URL }}
 
     steps:
       - name: Checkout code
