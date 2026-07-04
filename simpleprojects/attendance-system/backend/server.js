@@ -8,6 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// testing docker build job
+
 mongoose.connect('mongodb://mongodb:27017/attendancedb')
     .then(() => console.log('MongoDB Connected! ✅'))
     .catch((err) => console.log('Connection Error:', err));
