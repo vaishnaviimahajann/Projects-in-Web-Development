@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGO_URL)
     .catch((err) => console.log('Connection Error:', err));
 
 const studentSchema = new mongoose.Schema({
+    // testing caching and timeout optimization
     name: String,
     presentOn: { type: Date, default: Date.now }
 });
