@@ -31,10 +31,15 @@ const upload = multer({ storage });
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
 
+// Use ATLASDB_URL from .env if available, otherwise fallback to local MongoDB URL
+const dbUrl = process.env.ATLASDB_URL || MONGO_URL;
+
+
+
 
 // ✅ DB CONNECT
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 main()
   .then(() => console.log("Connected to MongoDB"))
@@ -265,3 +270,11 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
   console.log("Server is running on port 8080");
 });
+
+/*PpN6mbAABFG1BQUI
+vaishnaviimahajan2025_db_user
+
+mongodb+srv://vaishnaviimahajan2025_db_user:<db_password>@cluster0.qlaa20k.mongodb.net/?appName=Cluster0
+
+
+mongodb+srv://vaishnaviimahajan2025_db_user:PpN6mbAABFG1BQUI@cluster0.qlaa20k.mongodb.net/?appName=Cluster0*/

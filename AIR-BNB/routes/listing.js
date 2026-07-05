@@ -1,4 +1,4 @@
-const express = require("express");
+/*const express = require("express");
 const router = express.Router();
 
 const Listing = require("../models/listing.js");
@@ -28,6 +28,10 @@ router.get(
 
 // NEW
 router.get("/new", (req, res) => {
+  if(!req.isAuthenticated()){
+    req.flash("error","You must be logged in to create listing!");
+     res.redirect("/listings");
+  }
   res.render("listings/new");
 });
 
@@ -82,4 +86,4 @@ router.delete(
   })
 );
 
-module.exports = router;
+module.exports = router;*/
