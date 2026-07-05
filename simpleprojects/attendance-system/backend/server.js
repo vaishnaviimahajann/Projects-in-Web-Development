@@ -12,6 +12,7 @@ app.use(express.json());
 
 // testing docker build job
 // testing branch-specific workflow
+// testing fixed yaml syntax
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('MongoDB Connected! ✅'))
